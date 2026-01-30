@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreenBit Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+<script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+// Consent check: redirect to consent.html if not accepted
+if (!localStorage.getItem('greenbit_consent')) {
+  window.location.href = 'consent.html';
+}
+</script>
+
+<style>
+  /* GLOBAL RESET */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html, body{
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --accent: #2d9d75;
+  --accent-dark: #1a6b4d;
+  --bg-light: #eaf6ff;
+  --bg-card: #ffffff;
+  --text-dark: #1a1a1a;
+  --text-muted: #666;
+}
+
+body{
+  font-family:Inter,sans-serif;
+  background:var(--bg-light);
+  color:var(--text-dark);
+}
+
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 24px;   /* fixed inner padding */
+  border-bottom:1px solid #b6e0d8;
+  background:#6bbaf3;
+}
+
+.container{
+  padding:50px 24px;   /* fixed inner padding */
+}
+
+
+.logo{font-size:22px;font-weight:800;color:var(--accent);text-decoration:none}
+
+.btn{
+  background:linear-gradient(135deg,#2d9d75,#1a6b4d);
+  color:white;
+  border:none;
+  padding:12px 20px;
+  border-radius:999px;
+  font-weight:700;
+  cursor:pointer;
+  transition:background 0.2s;
+}
+
+.btn:hover{
+  background:linear-gradient(135deg,#1a6b4d,#2d9d75);
+}
+
+.container{padding:50px 7%}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:24px;
+}
+
+.card{
+  background:var(--bg-card);
+  border:1px solid #e0ece6;
+  border-radius:22px;
+  padding:26px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.06);
+}
+
+.card h3{font-size:14px;color:var(--text-muted);margin-bottom:10px}
+.big{font-size:32px;font-weight:800;color:var(--accent)}
+
+.scan{margin-top:40px;text-align:center}
+
+.bar{margin-top:18px;height:16px;background:#eaf6ff;border-radius:999px;overflow:hidden}
+.fill{height:100%;width:0%;background:linear-gradient(90deg,#2d9d75,#1a6b4d);transition:0.4s}
+
+#impactBox{margin-top:18px;font-weight:800;color:var(--accent);display:none}
+
+.demo-glow{
+  box-shadow:0 0 25px #38ffb3 !important;
+  transform:scale(1.04);
+  transition:0.4s;
+}
+
+/* Responsive tweaks for lighter theme */
+@media(max-width:768px){
+  .container{padding:30px 3%}
+  .grid{gap:14px;}
+  .card{padding:16px;}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<a href="1.html" class="logo" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+  <img src="hackimage.jpeg" alt="GreenBit Logo" style="height:32px;width:32px;border-radius:8px;box-shadow:0 2px 8px #b6e0d8;object-fit:cover;">
+  <span style="font-size:22px;font-weight:800;color:#1a6b4d;letter-spacing:-1px;">GreenBit</span>
+</a>
+<div>
+<button class="btn" onclick="handleAuth()">Connect Google</button>
+<button class="btn" onclick="startAutoDemo()" style="margin-left:10px">▶ Auto Demo</button>
+</div>
+</nav>
+
+<div class="container">
+
+<div class="grid">
+<div class="card"><h3>Total Storage</h3><div id="storage" class="big">—</div></div>
+<div class="card"><h3>Email Dark Data</h3><div id="gmailDark" class="big">—</div></div>
+<div class="card"><h3>Email Carbon</h3><div id="gmailCarbon" class="big">—</div></div>
+<div class="card"><h3>Energy Impact</h3><div id="energy" class="big">—</div></div>
+</div>
+
+<div class="scan card">
+<h2>Digital Waste Scanner</h2>
+<p id="status">Connect Google to begin scan</p>
+<div class="bar"><div id="bar" class="fill"></div></div>
+
+<button class="btn" style="margin-top:22px" onclick="simulateCleanup()">
+Simulate Cleanup Impact
+</button>
+<button class="btn" style="margin-top:12px"
+onclick="downloadReport()">
+Download Impact Report
+</button>
+
+<div id="impactBox"></div>
+</div>
+<div class="card" style="margin-top:30px">
+<h2>📂 Gmail Data Groups</h2>
+
+<div id="groupBox"></div>
+
+<h3 style="margin-top:20px">🗑 Recovery Bin (15-Day Hold)</h3>
+<div id="recoveryBox"></div>
+</div>
+
+<div class="card" style="margin-top:30px">
+<h2>Impact Visualization</h2>
+<canvas id="impactChart" height="120"></canvas>
+</div>
+
+</div>
+
+<script>
+
+/* CONFIG */
+
+const CLIENT_ID="699937221967-odkvn78075r8snnj2lppbq7iakt9kgo3.apps.googleusercontent.com";
+const API_KEY="AIzaSyAwtag9k1g20qOjhlgQ-tBxT5A2NcGuU0w";
+
+const DISCOVERY_DOCS=[
+"https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
+"https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"
+];
+
+const SCOPES="https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/gmail.readonly";
+
+let tokenClient,gapiReady=false,gisReady=false,impactChart;
+
+/* LOADERS */
+
+function gapiLoaded(){
+gapi.load("client",async()=>{
+await gapi.client.init({apiKey:API_KEY,discoveryDocs:DISCOVERY_DOCS});
+gapiReady=true;
+});
+}
+
+function gisLoaded(){
+tokenClient=google.accounts.oauth2.initTokenClient({
+client_id:CLIENT_ID,
+scope:SCOPES,
+callback:""
+});
+gisReady=true;
+}
+
+/* AUTH */
+
+function handleAuth(){
+return new Promise((resolve)=>{
+if(!gapiReady||!gisReady){alert("API loading");return;}
+
+tokenClient.callback=async()=>{
+animateBar();
+await runDriveScan();
+await runGmailScan();
+status.innerText="Scan complete ✅";
+bar.style.width="100%";
+updateChart();
+resolve();
+};
+
+tokenClient.requestAccessToken({prompt:"consent",include_granted_scopes:false});
+});
+}
+
+/* BAR */
+
+function animateBar(){
+let p=0;
+const t=setInterval(()=>{
+p+=5;
+bar.style.width=p+"%";
+if(p>=90) clearInterval(t);
+},120);
+}
+
+/* DRIVE */
+
+async function runDriveScan(){
+status.innerText="Scanning Drive...";
+const res=await gapi.client.drive.files.list({
+pageSize:500,
+fields:"files(size,modifiedTime)"
+});
+
+let total=0;
+const TWOY=1000*60*60*24*365*2,now=Date.now();
+
+res.result.files.forEach(f=>{
+const s=Number(f.size||0);
+total+=s;
+});
+
+const totalGB=total/(1024**3);
+
+storage.innerText=totalGB.toFixed(2)+" GB";
+}
+
+async function runGmailScan(){
+
+  status.innerText = "Scanning Gmail...";
+
+  gmailGroups = {
+    newsletters: [],
+    promotions: [],
+    spam: [],
+    old: []
+  };
+
+  const list = await gapi.client.gmail.users.messages.list({
+    userId:"me",
+    maxResults:120
+  });
+
+  if(!list.result.messages){
+    renderGroups();
+    return;
+  }
+
+  const now = Date.now();
+  const ONE_YEAR = 365*24*60*60*1000;
+
+  /* fetch only first 40 metadata — fast + stable */
+  const sample = list.result.messages.slice(0,40);
+
+  for(const m of sample){
+
+    try {
+
+      const meta = await gapi.client.gmail.users.messages.get({
+        userId:"me",
+        id:m.id,
+        format:"metadata",
+        metadataHeaders:["Subject","Date"]
+      });
+
+      const headers = meta.result.payload?.headers || [];
+      const subject = headers.find(h=>h.name==="Subject")?.value || "";
+      const dateStr = headers.find(h=>h.name==="Date")?.value || "";
+
+      const labels = meta.result.labelIds || [];
+
+      const item = { id:m.id, title: subject || "(no subject)" };
+
+      /* ---------- GROUP RULES ---------- */
+
+      if(labels.includes("SPAM"))
+        gmailGroups.spam.push(item);
+
+      if(subject.toLowerCase().includes("unsubscribe"))
+        gmailGroups.newsletters.push(item);
+
+      if(subject.toLowerCase().includes("offer") ||
+         subject.toLowerCase().includes("sale") ||
+         subject.toLowerCase().includes("deal"))
+        gmailGroups.promotions.push(item);
+
+      if(dateStr){
+        const t = new Date(dateStr).getTime();
+        if(now - t > ONE_YEAR)
+          gmailGroups.old.push(item);
+      }
+
+    } catch(e){
+      console.log("skip msg", e);
+    }
+  }
+
+  /* ---------- IMPACT CALC (keep dashboard working) ---------- */
+
+  const count = list.result.messages.length;
+  const mb = count * 0.015;
+
+  gmailDark.innerText = mb.toFixed(2)+" MB";
+  gmailCarbon.innerText = ((mb/1024)*0.5).toFixed(3)+" kg";
+  energy.innerText = (mb*1.2).toFixed(2)+" kWh";
+
+  renderGroups();
+  renderRecovery();
+
+}
+function renderGroups(){
+
+  const box = document.getElementById("groupBox");
+
+  box.innerHTML = Object.entries(gmailGroups).map(([key,list])=>`
+
+    <div style="margin:12px 0;padding:12px;border:1px solid #ddd;border-radius:12px">
+      <b>${key.toUpperCase()} — ${list.length}</b>
+      <button onclick="deleteGroup('${key}')">
+        Schedule Delete (15 days)
+      </button>
+    </div>
+
+  `).join("");
+
+}
+
+function deleteGroup(key){
+  gmailGroups[key].forEach(item => saveRecoveryItem(item));
+  gmailGroups[key] = [];
+  renderGroups();
+}
+
+
+
+/* CLEANUP */
+
+function animateValue(id,start,end,duration,suffix){
+const el=document.getElementById(id);
+const step=(end-start)/(duration/30);
+let val=start;
+const t=setInterval(()=>{
+val+=step;
+if((step>0&&val>=end)||(step<0&&val<=end)){val=end;clearInterval(t);}
+el.innerText=val.toFixed(2)+suffix;
+},30);
+}
+
+function simulateCleanup(){
+const e=parseFloat(energy.innerText);
+const m=parseFloat(gmailDark.innerText);
+
+animateValue("energy",e,e*0.4,800," kWh");
+animateValue("gmailDark",m,m*0.4,800," MB");
+
+impactBox.style.display="block";
+impactBox.innerText="🌱 Cleanup simulated";
+
+setTimeout(updateChart,900);
+}
+
+function updateChart(){
+const m=parseFloat(gmailDark.innerText)/1024;
+const e=parseFloat(energy.innerText);
+
+if(impactChart) impactChart.destroy();
+
+impactChart=new Chart(
+document.getElementById("impactChart").getContext("2d"),
+{
+type:"bar",
+data:{labels:["Email GB","Energy"],
+datasets:[{data:[m,e]}]},
+options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}
+});
+}
+
+/* DEMO MODE */
+
+function glow(id){
+const el=document.getElementById(id);
+el.classList.add("demo-glow");
+setTimeout(()=>el.classList.remove("demo-glow"),1500);
+}
+
+function startAutoDemo(){
+
+  const overlay = document.getElementById("demoOverlay");
+  if (overlay) {
+    overlay.style.display = "block";
+    overlay.innerText = "🚀 Demo running...";
+  }
+
+  // Step 1 — tell user to click auth
+  status.innerText = "Step 1: Connecting Google…";
+  glow("status");
+
+  // Step 2 — trigger auth (user still must approve popup)
+  handleAuth();
+
+  // Step 3 — after scan likely done, run simulation
+  setTimeout(()=>{
+    status.innerText = "Step 2: Showing impact…";
+    glow("dark");
+    glow("gmailDark");
+  }, 4000);
+
+  setTimeout(()=>{
+    status.innerText = "Step 3: Simulating cleanup…";
+    simulateCleanup();
+  }, 6500);
+
+  setTimeout(()=>{
+    status.innerText = "Step 4: Updating chart…";
+    updateChart();
+    glow("impactChart");
+  }, 9000);
+
+  setTimeout(()=>{
+    status.innerText = "✅ Demo complete";
+    if (overlay) overlay.style.display = "none";
+  }, 11000);
+}
+async function downloadReport(){
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  // ✅ correct element IDs
+  const storage = document.getElementById("storage")?.innerText || "-";
+  const gmail = document.getElementById("gmailDark")?.innerText || "-";
+  const carbon = document.getElementById("gmailCarbon")?.innerText || "-";
+  const energy = document.getElementById("energy")?.innerText || "-";
+
+  const date = new Date().toLocaleString();
+
+  /* ---------- HEADER ---------- */
+
+  doc.setFontSize(20);
+  doc.text("GreenBit Impact Report", 20, 20);
+
+  doc.setFontSize(11);
+  doc.text("Digital Carbon Footprint Analysis", 20, 28);
+
+  /* ---------- SCAN INFO ---------- */
+
+  doc.text("Generated:", 20, 40);
+  doc.text(date, 60, 40);
+
+  /* ---------- RESULTS ---------- */
+
+  doc.setFontSize(14);
+  doc.text("Scan Results", 20, 55);
+
+  doc.setFontSize(12);
+  doc.text(`Total Drive Storage: ${storage}`, 20, 70);
+  doc.text(`Email Data Estimate: ${gmail}`, 20, 80);
+  doc.text(`Energy Impact: ${energy}`, 20, 90);
+  doc.text(`Carbon Footprint: ${carbon}`, 20, 100);
+
+  /* ---------- ACTIONS ---------- */
+
+  doc.setFontSize(14);
+  doc.text("Recommended Actions", 20, 120);
+
+  doc.setFontSize(11);
+  doc.text("• Delete unused files older than 2 years", 20, 135);
+  doc.text("• Remove large email attachments", 20, 145);
+  doc.text("• Clear duplicate backups", 20, 155);
+  doc.text("• Schedule monthly digital cleanup", 20, 165);
+
+  /* ---------- FOOTER ---------- */
+
+  doc.setFontSize(10);
+  doc.text(
+    "Generated by GreenBit — Making the Internet Sustainable",
+    20,
+    280
+  );
+
+  /* ---------- SAVE ---------- */
+
+  doc.save("greenbit-impact-report.pdf");
+}
+
+function saveScanToBackend(data){
+
+  fetch("http://localhost:5000/api/scan", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(r => r.json())
+  .then(d => console.log("Saved to backend:", d))
+  .catch(e => console.log("Backend error:", e));
+
+}
+/* ---------- GROUP STORAGE ---------- */
+
+let gmailGroups = {
+  newsletters: [],
+  spam: [],
+  old: [],
+  promotions: []
+};
+
+function saveRecoveryItem(item){
+  const bin = JSON.parse(localStorage.getItem("greenbit_bin") || "[]");
+  bin.push({
+    ...item,
+    deleteDate: Date.now()
+  });
+  localStorage.setItem("greenbit_bin", JSON.stringify(bin));
+  renderRecovery();
+}
+
+/* ---------- RECOVERY BIN ---------- */
+
+function renderRecovery(){
+
+  const box = document.getElementById("recoveryBox");
+  const bin = JSON.parse(localStorage.getItem("greenbit_bin") || "[]");
+
+  if(bin.length === 0){
+    box.innerHTML = "No items in recovery bin";
+    return;
+  }
+
+  box.innerHTML = bin.map((item,i)=>{
+
+    const daysLeft = 15 - Math.floor((Date.now()-item.deleteDate)/(1000*60*60*24));
+
+    return `
+      <div style="padding:8px;border-bottom:1px solid #eee">
+        ${item.title}
+        ⏳ ${daysLeft} days left
+        <button onclick="restoreItem(${i})">Restore</button>
+      </div>
+    `;
+  }).join("");
+}
+
+function restoreItem(i){
+  const bin = JSON.parse(localStorage.getItem("greenbit_bin") || "[]");
+  bin.splice(i,1);
+  localStorage.setItem("greenbit_bin", JSON.stringify(bin));
+  renderRecovery();
+}
+
+/* auto-expire */
+
+setInterval(()=>{
+  let bin = JSON.parse(localStorage.getItem("greenbit_bin") || "[]");
+  bin = bin.filter(x => Date.now()-x.deleteDate < 15*24*60*60*1000);
+  localStorage.setItem("greenbit_bin", JSON.stringify(bin));
+  renderRecovery();
+}, 60000);
+renderRecovery();
+</script>
+<div id="demoOverlay" style="
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+background:white;
+color:black;
+padding:16px 28px;
+border-radius:14px;
+font-weight:700;
+display:none;
+z-index:9999;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+">
+🚀 Auto Demo Running...
+</div>
+
+</body>
+</html>

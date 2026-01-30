@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreenBit — Clean Your Digital Waste</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background:#0b0f0d;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* ---------- NAVBAR ---------- */
+
+nav {
+  position:sticky;
+  top:0;
+  backdrop-filter: blur(12px);
+  background: rgba(10,15,12,0.6);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 8%;
+  z-index:999;
+  border-bottom:1px solid rgba(0,255,150,0.15);
+}
+
+.logo {
+  font-size:22px;
+  font-weight:800;
+  color:#5cff9d;
+}
+.logo {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:22px;
+  font-weight:800;
+  color:#5cff9d;
+}
+
+.logo img {
+  height:38px;
+  width:auto;
+  border-radius:8px;
+}
+
+
+.nav-links {
+  display:flex;
+  gap:28px;
+  align-items:center;
+}
+
+.nav-links a {
+  text-decoration:none;
+  color:#cfe9dc;
+  font-weight:500;
+}
+
+.nav-links a:hover {
+  color:#5cff9d;
+}
+
+.btn {
+  padding:12px 22px;
+  border-radius:999px;
+  border:none;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.25s;
+}
+
+.btn-primary {
+  background:linear-gradient(135deg,#1fff9c,#0bbf72);
+  color:#052a1b;
+}
+
+.btn-primary:hover {
+  transform:translateY(-2px);
+  box-shadow:0 0 18px rgba(0,255,150,0.5);
+}
+
+.btn-outline {
+  background:transparent;
+  border:1px solid #2fffab;
+  color:#7fffc5;
+}
+
+.btn-outline:hover {
+  background:#123d2a;
+}
+
+/* ---------- HERO ---------- */
+
+.hero {
+  min-height:92vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:0 20px;
+  background:
+    radial-gradient(circle at 30% 20%, #1d4d36 0%, transparent 40%),
+    linear-gradient(135deg,#07130f,#0f2e22,#07130f);
+  position:relative;
+}
+
+.hero h1 {
+  font-size: clamp(34px, 6vw, 68px);
+  font-weight:800;
+  margin-bottom:20px;
+  background:linear-gradient(90deg,#b4ffd8,#37ff9c);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p {
+  max-width:720px;
+  font-size:20px;
+  color:#b8d9c9;
+  margin-bottom:30px;
+}
+
+.hero-buttons {
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+/* floating particles */
+
+.particle {
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:#39ff9e;
+  border-radius:50%;
+  opacity:0.4;
+  animation:float 12s linear infinite;
+}
+
+@keyframes float {
+  from { transform:translateY(0px); }
+  to { transform:translateY(-120vh); }
+}
+
+/* ---------- STATS ---------- */
+
+.section {
+  padding:90px 8%;
+}
+
+.section-title {
+  text-align:center;
+  font-size:36px;
+  margin-bottom:14px;
+}
+
+.section-sub {
+  text-align:center;
+  color:#a6cdb9;
+  margin-bottom:50px;
+}
+
+.stats-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:28px;
+}
+
+.stat-card {
+  backdrop-filter: blur(14px);
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(0,255,150,0.2);
+  padding:34px;
+  border-radius:22px;
+  text-align:center;
+  transition:0.3s;
+}
+
+.stat-card:hover {
+  transform:translateY(-6px);
+  box-shadow:0 0 25px rgba(0,255,150,0.25);
+}
+
+.stat-number {
+  font-size:34px;
+  font-weight:800;
+  color:#55ffb0;
+}
+
+/* ---------- HOW IT WORKS ---------- */
+
+.steps {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
+
+.step-card {
+  background:#0e1814;
+  padding:34px;
+  border-radius:20px;
+  border:1px solid #183a2c;
+  transition:0.3s;
+}
+
+.step-card:hover {
+  border-color:#3aff9e;
+  transform:translateY(-4px);
+}
+
+.step-icon {
+  font-size:34px;
+  margin-bottom:12px;
+}
+
+/* ---------- BENEFITS ---------- */
+
+.split {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+}
+
+.highlight {
+  background:rgba(0,255,150,0.12);
+  border-left:4px solid #36ff9b;
+  padding:18px;
+  border-radius:12px;
+  margin-top:18px;
+  font-weight:600;
+  color:#baffdf;
+}
+
+/* ---------- CTA ---------- */
+
+.cta {
+  text-align:center;
+  background:linear-gradient(135deg,#0d2f22,#134c36);
+  border-radius:28px;
+  padding:70px 20px;
+}
+
+/* ---------- FOOTER ---------- */
+
+footer {
+  padding:50px 8%;
+  background:#050a08;
+  border-top:1px solid #163c2c;
+}
+
+.footer-grid {
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:20px;
+}
+
+.footer-links {
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+.footer-links a {
+  color:#9acbb6;
+  text-decoration:none;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media(max-width:768px){
+  .split {
+    grid-template-columns:1fr;
+  }
+  nav {
+    padding:14px 5%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+  <div class="logo">
+  <img src="hackimage.jpeg" alt="GreenBit Logo">
+  <span>GreenBit</span>
+</div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#works">How It Works</a>
+    <a href="#impact">Impact</a>
+    <a href="dashboard.html">Login</a>
+    <a href="dashboard.html"><button class="btn btn-primary">Sign Up</button></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+  <h1>Clean Your Digital Waste. Save The Planet.</h1>
+  <p>
+    GreenBit helps you reduce invisible pollution by removing unused digital data and lowering carbon emissions from cloud storage.
+  </p>
+  <div class="hero-buttons">
+    <a href="dashboard.html">
+  <button class="btn btn-primary">Get Started Free</button>
+    </a>
+
+<a href="dashboard.html">
+  <button class="btn btn-outline">Login</button>
+</a>
+
+  </div>
+</section>
+
+<!-- STATS -->
+
+<section class="section" id="impact">
+  <h2 class="section-title">Live Impact Statistics</h2>
+  <p class="section-sub">Real-time impact generated by GreenBit users worldwide.</p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      🌍
+      <div class="stat-number" data-target="12480">0</div>
+      CO₂ Saved (kg)
+    </div>
+
+    <div class="stat-card">
+      ⚡
+      <div class="stat-number" data-target="24000">0</div>
+      Energy Saved (kWh)
+    </div>
+
+    <div class="stat-card">
+      📁
+      <div class="stat-number" data-target="180">0</div>
+      Data Cleaned (TB)
+    </div>
+
+    <div class="stat-card">
+      👥
+      <div class="stat-number" data-target="4200">0</div>
+      Active Users
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+
+<section class="section" id="works">
+  <h2 class="section-title">How GreenBit Works</h2>
+
+  <div class="steps">
+    <div class="step-card">
+      <div class="step-icon">🔐</div>
+      <h3>Connect Your Account</h3>
+      <p>Login securely using Google or Microsoft.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-icon">🔍</div>
+      <h3>Scan Digital Waste</h3>
+      <p>We analyze unused emails, files, spam and old data.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-icon">♻️</div>
+      <h3>Clean & Save Energy</h3>
+      <p>Delete clutter and instantly reduce carbon footprint.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+
+<section class="section">
+  <div class="split">
+    <div>
+      <h2>Why Digital Cleanup Matters</h2>
+      <ul style="margin-top:20px; line-height:2;">
+        <li>Data centers consume massive electricity</li>
+        <li>Unused files increase energy demand</li>
+        <li>Cleaning storage reduces server load</li>
+        <li>Small actions create climate impact</li>
+      </ul>
+
+      <div class="highlight">
+        Every GB deleted reduces long-term carbon emissions.
+      </div>
+    </div>
+
+    <div>
+      <div class="stat-card">
+        🌱 Digital → Clean → Green → Sustainable
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+
+<section class="section">
+  <div class="cta">
+    <h2>Start Saving Energy in 60 Seconds</h2>
+    <br>
+    <button class="btn btn-primary">Sign Up Free</button>
+    <button class="btn btn-outline">Login Dashboard</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="logo">GreenBit</div>
+      <p>Making the Internet Sustainable.</p>
+    </div>
+
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Contact</a>
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<!-- JS -->
+
+<script>
+/* animated counters */
+
+const counters = document.querySelectorAll('.stat-number');
+
+counters.forEach(counter => {
+  const update = () => {
+    const target = +counter.dataset.target;
+    const value = +counter.innerText;
+    const inc = target / 120;
+
+    if (value < target) {
+      counter.innerText = Math.ceil(value + inc);
+      setTimeout(update, 20);
+    } else {
+      counter.innerText = target.toLocaleString();
+    }
+  };
+  update();
+});
+
+/* floating particles */
+
+for(let i=0;i<40;i++){
+  let p = document.createElement("div");
+  p.className="particle";
+  p.style.left=Math.random()*100+"%";
+  p.style.top=(Math.random()*100+100)+"%";
+  p.style.animationDuration=(8+Math.random()*10)+"s";
+  document.body.appendChild(p);
+}
+</script>
+
+</body>
+</html>

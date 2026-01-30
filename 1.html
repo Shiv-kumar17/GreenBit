@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreenBit — Clean Your Digital Waste</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* HOW SECTION */
+
+.how-section{
+  padding:80px 8%;
+  background:white;
+}
+
+/* dark mode */
+
+body.dark-theme .how-section{
+  background:#16222a;
+}
+
+body.dark-theme .how-section h2{
+  color:#38ffb3;
+}
+
+body.dark-theme .how-section h3{
+  color:#e8e8e8;
+}
+
+body.dark-theme .how-section p{
+  color:#aaa;
+}
+
+:root{
+  --accent: #2d9d75;
+  --accent-dark: #1a6b4d;
+  --bg-light: #eaf6ff;
+  --bg-card: #ffffff;
+  --text-dark: #1a1a1a;
+  --text-muted: #666;
+}
+
+body.dark-theme {
+  --bg-light: #0c1a20;
+  --bg-card: #182830;
+  --text-dark: #e8e8e8;
+  --text-muted: #aaa;
+}
+
+body.dark-theme {
+  background: var(--bg-light);
+  color: var(--text-dark);
+}
+
+body.dark-theme nav {
+  background: #182830;
+}
+
+body.dark-theme .logo span,
+body.dark-theme .logo {
+  color: #fff !important;
+}
+
+body.dark-theme .nav-links a {
+  color: var(--text-dark);
+}
+
+body.dark-theme .hero-new {
+  background: linear-gradient(to bottom, #223a4d, #1a2a38);
+}
+
+body.dark-theme .hero-new::after {
+  background: #182830;
+}
+
+body.dark-theme .hero-header {
+  color: #e8e8e8;
+}
+
+body.dark-theme .hero-card {
+  background: #fff !important;
+  color: #1a1a1a;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+body.dark-theme .hero-card p {
+  color: var(--text-muted);
+}
+
+body.dark-theme .hero-input {
+  background: #223a4d;
+  color: #e8e8e8;
+  border: 1px solid #333;
+}
+
+body.dark-theme .hero-btn {
+  background: linear-gradient(135deg,#38ffb3,#2d9d75);
+  color: #1a1a1a;
+}
+
+body.dark-theme .section {
+  background: #16222a !important;
+  color: #e8e8e8;
+}
+
+body.dark-theme .section#impact {
+  background: #16222a !important;
+  color: #e8e8e8;
+}
+
+body.dark-theme .section#impact .section-title {
+  color: #38ffb3;
+}
+
+body.dark-theme .section#impact .section-sub {
+  color: #aaa;
+}
+
+body.dark-theme .section#impact .stat-card {
+  background: #223a4d;
+  color: #e8e8e8;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+}
+
+body.dark-theme .section#impact .stat-number {
+  color: #38ffb3;
+}
+
+body.dark-theme .how-section,
+body.dark-theme .how-section h2,
+body.dark-theme .how-section h3,
+body.dark-theme .how-section p {
+  background: unset !important;
+  color: unset !important;
+}
+
+/* For inline-styled How does it work section */
+body.dark-theme section[style*="How does it work"] h2,
+body.dark-theme section[style*="How does it work"] h3,
+body.dark-theme section[style*="How does it work"] p,
+body.dark-theme section[style*="How does it work"] div,
+body.dark-theme section[style*="How does it work"] {
+  color: #1a1a1a !important;
+}
+
+body.dark-theme .hero-card h3 {
+  color: #1a1a1a !important;
+}
+
+body.dark-theme .footer-advanced {
+  background: linear-gradient(135deg,#0f2a22,#0f1f2a);
+  border-color: #1e3a34;
+}
+
+body.dark-theme .footer-logo {
+  color: #38ffb3;
+}
+
+body.dark-theme .footer-advanced a {
+  color: #aaa;
+}
+
+body.dark-theme .footer-advanced a:hover {
+  color: #38ffb3;
+}
+
+body.dark-theme .footer-brand p {
+  color: #aaa;
+}
+
+body.dark-theme .footer-bottom {
+  color: #aaa;
+  border-top: 1px solid #223a4d;
+}
+
+body.dark-theme .footer-social span {
+  background: #223a4d;
+  color: #38ffb3;
+}
+
+body.dark-theme .footer-newsletter input {
+  background: #223a4d;
+  color: #e8e8e8;
+  border: 1px solid #333;
+}
+
+body.dark-theme .footer-newsletter button {
+  background: #38ffb3;
+  color: #1a1a1a;
+}
+
+/* RESET */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Inter,sans-serif;
+  background:var(--bg-light);
+  color:var(--text-dark);
+}
+
+/* ---------------- NAVBAR ---------------- */
+
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 8%;
+  background: #6bbaf3;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+body.dark-theme nav{
+  background:#182830;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:800;
+  color:var(--accent);
+}
+
+.nav-links{
+  display:flex;
+  gap:20px;
+  align-items:center;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:var(--text-dark);
+  font-weight:500;
+}
+
+.theme-toggle{
+  border:none;
+  background:#dff4ec;
+  padding:10px;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+/* ---------------- CLEANFOX STYLE HERO ---------------- */
+
+.hero-new{
+  padding:80px 6%;
+  background:linear-gradient(to bottom,#6bbaf3,#9fd4ff);
+  position:relative;
+  overflow:hidden;
+}
+
+/* wave effect */
+
+.hero-new::after{
+  content:'';
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:150px;
+  background:white;
+  border-radius:100% 100% 0 0;
+}
+
+/* hero text */
+
+.hero-header{
+  text-align:center;
+  color:#000;
+  margin-bottom:50px;
+}
+
+.hero-header h1{
+  font-size:48px;
+  font-weight:800;
+}
+
+.hero-header p{
+  font-size:18px;
+  margin-top:12px;
+  opacity:0.85;
+}
+
+/* cards layout */
+
+.hero-cards{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:30px;
+  flex-wrap:wrap;
+  position:relative;
+  z-index:2;
+}
+
+/* card style */
+
+.hero-card{
+  background:var(--bg-card);
+  padding:35px;
+  border-radius:20px;
+  width:320px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  text-align:center;
+}
+
+.hero-card h3{
+  font-size:20px;
+  margin-bottom:8px;
+}
+
+.hero-card p{
+  font-size:14px;
+  color:var(--text-muted);
+  margin-bottom:20px;
+}
+
+/* input */
+
+.hero-input{
+  width:100%;
+  padding:14px;
+  border-radius:25px;
+  border:1px solid #ccc;
+  outline:none;
+  margin-bottom:15px;
+}
+
+/* button */
+
+.hero-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:25px;
+  background:linear-gradient(135deg,#2d9d75,#1a6b4d);
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.hero-btn:hover{
+  opacity:0.9;
+}
+
+/* OR separator */
+
+.hero-or{
+  font-weight:700;
+  font-size:16px;
+  color:white;
+}
+
+/* QR section */
+
+.hero-qr .qr-box{
+  display:flex;
+  gap:15px;
+  justify-content:center;
+}
+
+.qr-placeholder{
+  width:110px;
+  height:110px;
+  border-radius:14px;
+  background:#eaf5ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  color:#3498db;
+}
+
+/* ---------------- SECTION COMMON ---------------- */
+
+.section{
+  padding:80px 8%;
+  background:white;
+}
+
+.section-title{
+  text-align:center;
+  font-size:34px;
+  margin-bottom:10px;
+}
+
+.section-sub{
+  text-align:center;
+  color:#777;
+  margin-bottom:40px;
+}
+
+/* stats */
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+}
+
+.stat-card{
+  background:#f8fffc;
+  padding:30px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 6px 20px rgba(0,0,0,0.06);
+}
+
+.stat-number{
+  font-size:30px;
+  font-weight:800;
+  color:var(--accent);
+}
+
+/* ---------------- FOOTER ---------------- */
+
+/* -------- ADVANCED FOOTER -------- */
+
+.footer-advanced{
+  background: linear-gradient(135deg,#e8fff4,#f3fbff);
+  margin-top:80px;
+  padding:60px 8% 20px;
+  border-top:1px solid #dff1e8;
+}
+
+body.dark-theme .footer-advanced{
+  background: linear-gradient(135deg,#0f2a22,#0f1f2a);
+  border-color:#1e3a34;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:40px;
+  margin-bottom:40px;
+}
+
+.footer-advanced h4{
+  font-size:16px;
+  margin-bottom:14px;
+  color:var(--accent);
+}
+
+.footer-advanced a{
+  display:block;
+  text-decoration:none;
+  color:var(--text-muted);
+  margin-bottom:10px;
+  font-size:14px;
+  transition:.2s;
+}
+
+.footer-advanced a:hover{
+  color:var(--accent);
+  transform:translateX(4px);
+}
+body.dark-theme .how-section [style*="#2196F3"]{
+  background:#38ffb3 !important;
+  color:#0c1a20 !important;
+}
+
+body.dark-theme .how-section [style*="#ddd"]{
+  background:#355a66 !important;
+  border-left-color:#355a66 !important;
+}
+
+/* brand */
+
+.footer-logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:22px;
+  font-weight:800;
+  color:#0d3d2a;
+  margin-bottom:14px;
+}
+
+.footer-logo img{
+  height:40px;
+  width:40px;
+  border-radius:10px;
+}
+
+.footer-brand p{
+  color:var(--text-muted);
+  line-height:1.6;
+  font-size:14px;
+  max-width:320px;
+}
+
+/* social */
+
+.footer-social{
+  display:flex;
+  gap:14px;
+  font-size:20px;
+  margin-bottom:18px;
+}
+
+.footer-social span{
+  background:white;
+  padding:10px;
+  border-radius:50%;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  transition:.25s;
+}
+
+.footer-social span:hover{
+  transform:translateY(-3px);
+}
+
+/* newsletter */
+
+.footer-newsletter{
+  display:flex;
+  gap:8px;
+}
+
+.footer-newsletter input{
+  padding:10px;
+  border-radius:20px;
+  border:1px solid #cfe8db;
+  outline:none;
+  flex:1;
+}
+
+.footer-newsletter button{
+  padding:10px 16px;
+  border:none;
+  border-radius:20px;
+  background:var(--accent);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* bottom */
+
+.footer-bottom{
+  text-align:center;
+  padding-top:20px;
+  border-top:1px solid #dff1e8;
+  color:var(--text-muted);
+  font-size:14px;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+
+@media(max-width:768px){
+
+.hero-header h1{
+  font-size:36px;
+}
+
+.hero-cards{
+  flex-direction:column;
+}
+
+.hero-or{
+  color:#333;
+}
+
+}
+
+/* Did You Know Slider Section */
+.didyou-section {
+  padding: 60px 8%;
+  background: #f7fdfb;
+}
+
+body.dark-theme .didyou-section {
+  background: #16222a;
+}
+
+.didyou-slider {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 18px;
+}
+
+.didyou-fact {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-dark);
+  min-height: 80px;
+  text-align: center;
+  transition: opacity 0.4s;
+  flex: 1 1 0%;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.didyou-slider button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #38ffb3;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+  color: #0c1a1a;
+  cursor: pointer;
+}
+
+#prevFact {
+  left: -50px;
+}
+
+#nextFact {
+  right: -50px;
+}
+
+body.dark-theme .didyou-fact {
+  color: #e8e8e8;
+}
+
+.didyou-slider button:hover {
+  background: #2d9d75;
+  color: #fff;
+}
+
+.didyou-title {
+  font-size: 32px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--accent);
+  width: 100%;
+  display: block;
+}
+body.dark-theme .didyou-title {
+  color: #38ffb3;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+
+<nav>
+  <div class="logo" style="display:flex;align-items:center;gap:10px;">
+    <img src="hackimage.jpeg" alt="GreenBit Logo" style="height:32px;width:32px;object-fit:cover;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+    <span style="font-size:24px;font-weight:800;color:#0d3d2a;">GreenBit</span>
+  </div>
+  <div class="nav-links">
+    <button id="themeToggle" class="theme-toggle">🌙</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero-new" id="home">
+
+  <div class="hero-header">
+    <h1>Clean Your Digital Waste. Save The Planet.</h1>
+    <p>Remove unused files and reduce invisible carbon pollution from cloud storage.</p>
+  </div>
+
+  <div class="hero-cards">
+
+    <!-- LEFT CARD -->
+
+    <div class="hero-card">
+      <h3>Connect your mailbox</h3>
+      <p>Securely link your account and start cleaning.</p>
+
+      <input class="hero-input" id="userEmail" type="email" placeholder="Email address">
+
+      <button class="hero-btn" id="authBtn" disabled>
+        Confirm
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- IMPACT -->
+
+<section class="section" id="impact" style="background:#d4edda;">
+
+<h2 class="section-title">Live Impact Statistics</h2>
+<p class="section-sub">Real-time environmental impact</p>
+
+<div class="stats-grid">
+
+  <div class="stat-card">
+    🌍
+    <div class="stat-number" data-target="12480">0</div>
+    CO₂ Saved (kg)
+  </div>
+
+  <div class="stat-card">
+    ⚡
+    <div class="stat-number" data-target="24000">0</div>
+    Energy Saved (kWh)
+  </div>
+
+  <div class="stat-card">
+    📁
+    <div class="stat-number" data-target="180">0</div>
+    Data Cleaned (TB)
+  </div>
+
+  <div class="stat-card">
+    👥
+    <div class="stat-number" data-target="4200">0</div>
+    Active Users
+  </div>
+
+</div>
+
+</section>
+
+<!-- HOW DOES IT WORK SECTION -->
+
+<section class="how-section">
+  <h2 style="font-size:36px; font-weight:800; text-align:center; margin-bottom:60px; color:var(--text-dark);">How does it work?</h2>
+  
+  <div style="display:flex; justify-content:space-around; align-items:flex-start; gap:40px; flex-wrap:wrap; position:relative;">
+    
+    <!-- STEP 1 -->
+    <div style="flex:1; min-width:200px; text-align:center;">
+      <div style="width:60px; height:60px; background:#2196F3; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:28px; font-weight:800; margin:0 auto 20px;">1</div>
+      <div style="font-size:48px; margin-bottom:15px;">📬</div>
+      <h3 style="font-size:18px; font-weight:700; color:var(--text-dark); margin-bottom:10px;">Connect your mailbox</h3>
+      <p style="color:var(--text-muted); font-size:14px; line-height:1.6;">Securely link your email account to get started.</p>
+    </div>
+
+    <!-- ARROW 1 -->
+    <div style="flex-shrink:0; display:flex; align-items:center; height:80px;">
+      <div style="width:40px; height:2px; background:#ddd; position:relative;">
+        <div style="position:absolute; right:-8px; top:-6px; width:0; height:0; border-left:8px solid #ddd; border-top:6px solid transparent; border-bottom:6px solid transparent;"></div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div style="flex:1; min-width:200px; text-align:center;">
+      <div style="width:60px; height:60px; background:#2196F3; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:28px; font-weight:800; margin:0 auto 20px;">2</div>
+      <div style="font-size:48px; margin-bottom:15px;">📋</div>
+      <h3 style="font-size:18px; font-weight:700; color:var(--text-dark); margin-bottom:10px;">Choose newsletters to delete</h3>
+      <p style="color:var(--text-muted); font-size:14px; line-height:1.6;">Select which newsletters you want to remove.</p>
+    </div>
+
+    <!-- ARROW 2 -->
+    <div style="flex-shrink:0; display:flex; align-items:center; height:80px;">
+      <div style="width:40px; height:2px; background:#ddd; position:relative;">
+        <div style="position:absolute; right:-8px; top:-6px; width:0; height:0; border-left:8px solid #ddd; border-top:6px solid transparent; border-bottom:6px solid transparent;"></div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div style="flex:1; min-width:200px; text-align:center;">
+      <div style="width:60px; height:60px; background:#2196F3; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:28px; font-weight:800; margin:0 auto 20px;">3</div>
+      <div style="font-size:48px; margin-bottom:15px;">✨</div>
+      <h3 style="font-size:18px; font-weight:700; color:var(--text-dark); margin-bottom:10px;">Start cleaning your mailbox!</h3>
+      <p style="color:var(--text-muted); font-size:14px; line-height:1.6;">Watch as we clean your digital waste instantly.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FEATURES SECTION -->
+
+<section style="padding:80px 8%; background:linear-gradient(135deg,rgba(45,157,117,0.05),rgba(45,157,117,0.02));">
+  <h2 style="font-size:36px; font-weight:800; text-align:center; margin-bottom:15px; color:var(--text-dark);">Why Choose GreenBit?</h2>
+  <p style="text-align:center; color:var(--text-muted); font-size:16px; margin-bottom:60px; max-width:600px; margin-left:auto; margin-right:auto;">The most secure and effective way to clean your digital footprint and reduce your environmental impact.</p>
+  
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:28px; max-width:1200px; margin:0 auto;">
+    
+    <div style="background:var(--bg-card); padding:32px; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.08); border:1px solid rgba(45,157,117,0.1);">
+      <div style="font-size:40px; margin-bottom:12px;">🔒</div>
+      <h3 style="font-size:18px; font-weight:700; margin-bottom:8px; color:var(--text-dark);">100% Secure</h3>
+      <p style="color:var(--text-muted); line-height:1.6;">Your data is encrypted end-to-end. We never store or access your files.</p>
+    </div>
+
+    <div style="background:var(--bg-card); padding:32px; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.08); border:1px solid rgba(45,157,117,0.1);">
+      <div style="font-size:40px; margin-bottom:12px;">⚡</div>
+      <h3 style="font-size:18px; font-weight:700; margin-bottom:8px; color:var(--text-dark);">Lightning Fast</h3>
+      <p style="color:var(--text-muted); line-height:1.6;">Scan your entire digital footprint in seconds. Instant results and recommendations.</p>
+    </div>
+
+    <div style="background:var(--bg-card); padding:32px; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.08); border:1px solid rgba(45,157,117,0.1);">
+      <div style="font-size:40px; margin-bottom:12px;">🌍</div>
+      <h3 style="font-size:18px; font-weight:700; margin-bottom:8px; color:var(--text-dark);">Make an Impact</h3>
+      <p style="color:var(--text-muted); line-height:1.6;">Track your carbon savings in real-time and contribute to a greener planet.</p>
+    </div>
+
+    <div style="background:var(--bg-card); padding:32px; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.08); border:1px solid rgba(45,157,117,0.1);">
+      <div style="font-size:40px; margin-bottom:12px;">📊</div>
+      <h3 style="font-size:18px; font-weight:700; margin-bottom:8px; color:var(--text-dark);">Detailed Analytics</h3>
+      <p style="color:var(--text-muted); line-height:1.6;">Comprehensive insights into your digital waste and environmental footprint.</p>
+    </div>
+
+    <div style="background:var(--bg-card); padding:32px; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.08); border:1px solid rgba(45,157,117,0.1);">
+      <div style="font-size:40px; margin-bottom:12px;">💚</div>
+      <h3 style="font-size:18px; font-weight:700; margin-bottom:8px; color:var(--text-dark);">Community Impact</h3>
+      <p style="color:var(--text-muted); line-height:1.6;">Join thousands of users making a collective impact. Together we're building a greener future.</p>
+    </div>
+
+    <div style="background:var(--bg-card); padding:32px; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.08); border:1px solid rgba(45,157,117,0.1);">
+      <div style="font-size:40px; margin-bottom:12px;">✨</div>
+      <h3 style="font-size:18px; font-weight:700; margin-bottom:8px; color:var(--text-dark);">Simple & Easy</h3>
+      <p style="color:var(--text-muted); line-height:1.6;">User-friendly interface that anyone can use. No technical knowledge required.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<section class="didyou-section">
+  <h2 class="didyou-title">Did You Know?</h2>
+  <div class="didyou-slider">
+    <button id="prevFact">&#8592;</button>
+    <div class="didyou-fact" id="didyouFact"></div>
+    <button id="nextFact">&#8594;</button>
+  </div>
+</section>
+
+
+
+<footer class="footer-advanced">
+
+  <div class="footer-grid">
+
+    <!-- Brand -->
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="hackimage.jpeg">
+        <span>GreenBit</span>
+      </div>
+      <p>
+        Reduce your digital carbon footprint. Clean your cloud, email,
+        and storage waste — build a greener internet.
+      </p>
+    </div>
+
+    <!-- Product -->
+    <div>
+      <h4>Product</h4>
+      <a href="#home">How it Works</a>
+      <a href="#impact">Impact Stats</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="#">Reports</a>
+    </div>
+
+    <!-- Company -->
+    <div>
+      <h4>Company</h4>
+      <a href="#">About</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Security</a>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h4>Connect</h4>
+      <div class="footer-social">
+        <span>🐦</span>
+        <span>💼</span>
+        <span>🐙</span>
+        <span>📧</span>
+      </div>
+
+      <div class="footer-newsletter">
+        <input placeholder="Email for green tips">
+        <button>Join</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Bar -->
+
+  <div class="footer-bottom">
+    © <span id="year"></span> GreenBit • Built for a Greener Web 🌱
+  </div>
+
+</footer>
+
+
+<!-- DID YOU KNOW SLIDER SECTION -->
+
+
+<script>
+const facts = [
+  "If the internet were a country, it would be the 7th largest polluter in the world.",
+  "Deleting 30 emails saves as much energy as running a light bulb for a whole day.",
+  "Streaming one hour of video emits up to 36g of CO₂.",
+  "Data centers use about 1% of the world's electricity.",
+  "Unsubscribing from newsletters reduces your digital carbon footprint.",
+  "Every spam email emits about 0.3g of CO₂.",
+  "Storing 1GB of data in the cloud for a year uses as much energy as charging your phone 120 times."
+];
+let currentFact = 0;
+const factElem = document.getElementById('didyouFact');
+const showFact = idx => {
+  factElem.style.opacity = 0;
+  setTimeout(() => {
+    factElem.textContent = facts[idx];
+    factElem.style.opacity = 1;
+  }, 200);
+};
+document.getElementById('prevFact').onclick = () => {
+  currentFact = (currentFact - 1 + facts.length) % facts.length;
+  showFact(currentFact);
+};
+document.getElementById('nextFact').onclick = () => {
+  currentFact = (currentFact + 1) % facts.length;
+  showFact(currentFact);
+};
+showFact(currentFact);
+</script>
+
+
+<script>
+
+/* COUNTER ANIMATION */
+
+const counters=document.querySelectorAll('.stat-number');
+
+counters.forEach(counter=>{
+  const update=()=>{
+    const target=+counter.dataset.target;
+    const val=+counter.innerText;
+    const inc=target/100;
+
+    if(val<target){
+      counter.innerText=Math.ceil(val+inc);
+      setTimeout(update,20);
+    }else{
+      counter.innerText=target;
+    }
+  }
+  update();
+});
+
+/* DARK MODE */
+
+const toggle=document.getElementById("themeToggle");
+
+toggle.onclick=()=>{
+  document.body.classList.toggle("dark-theme");
+  toggle.textContent=document.body.classList.contains("dark-theme")?"☀️":"🌙";
+};
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const emailInput = document.getElementById('userEmail');
+const authBtn = document.getElementById('authBtn');
+
+// Enable button only if email is valid
+emailInput.addEventListener('input', function() {
+  authBtn.disabled = !/^\S+@\S+\.\S+$/.test(emailInput.value);
+});
+
+authBtn.onclick = function() {
+  const email = emailInput.value;
+  if (!/^\S+@\S+\.\S+$/.test(email)) {
+    alert('Please enter a valid email address.');
+    emailInput.focus();
+    return;
+  }
+  // Google OAuth with login_hint
+  google.accounts.id.initialize({
+    client_id: '699937221967-odkvn78075r8snnj2lppbq7iakt9kgo3.apps.googleusercontent.com',
+    callback: (response) => {
+      // On success, redirect to consent.html
+      window.location.href = 'consent.html';
+    },
+    login_uri: window.location.origin + '/consent.html',
+    ux_mode: 'popup',
+  });
+  google.accounts.id.prompt((notification) => {
+    // If user completes sign-in, redirect
+    if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+      // fallback: just go to consent
+      window.location.href = 'consent.html';
+    }
+  }, {login_hint: email});
+};
+
+</script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</body>
+</html>

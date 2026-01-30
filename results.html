@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreenBit Impact Results</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:Inter,sans-serif;
+  background:#06120e;
+  color:white;
+}
+
+/* NAV */
+
+nav{
+  display:flex;
+  justify-content:space-between;
+  padding:18px 7%;
+  background:rgba(0,0,0,0.45);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid #123b2a;
+}
+
+.logo{
+  font-weight:800;
+  font-size:20px;
+  color:#5cff9d;
+  text-decoration:none;
+}
+
+/* LAYOUT */
+
+.container{
+  padding:50px 7%;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+}
+
+/* CARDS */
+
+.card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(0,255,150,0.2);
+  border-radius:22px;
+  padding:28px;
+  backdrop-filter: blur(12px);
+}
+
+.big{
+  font-size:36px;
+  font-weight:800;
+  color:#5cffb0;
+}
+
+.label{
+  color:#9fdcc1;
+  margin-bottom:8px;
+}
+
+/* BARS */
+
+.bar-wrap{
+  margin-top:14px;
+}
+
+.bar{
+  height:18px;
+  border-radius:999px;
+  background:#0e241b;
+  overflow:hidden;
+}
+
+.bar-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#2cff9f,#0abf72);
+  transition:1.2s;
+}
+
+/* IMPACT BOX */
+
+.impact{
+  margin-top:40px;
+  text-align:center;
+  padding:40px;
+  border-radius:28px;
+  background:linear-gradient(135deg,#0d2f22,#134c36);
+}
+
+/* BUTTON */
+
+.btn{
+  margin-top:24px;
+  padding:14px 22px;
+  border-radius:999px;
+  border:none;
+  font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(135deg,#2bff9f,#0fbf72);
+  color:#053321;
+}
+
+@media(max-width:700px){
+  .container{padding:30px 5%}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <a href="1.html" class="logo">🌱 GreenBit</a>
+  <a href="dashboard.html" class="logo">Dashboard</a>
+</nav>
+
+<div class="container">
+
+  <h1>Cleanup Impact Report</h1>
+  <br>
+
+  <!-- STORAGE BEFORE AFTER -->
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="label">Storage Before Cleanup</div>
+      <div class="big" id="before">—</div>
+      <div class="bar-wrap">
+        <div class="bar"><div class="bar-fill" id="barBefore"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="label">Storage After Cleanup</div>
+      <div class="big" id="after">—</div>
+      <div class="bar-wrap">
+        <div class="bar"><div class="bar-fill" id="barAfter"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="label">Energy Saved</div>
+      <div class="big" id="energy">—</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Carbon Prevented</div>
+      <div class="big" id="carbon">—</div>
+    </div>
+
+  </div>
+
+  <!-- REAL WORLD IMPACT -->
+
+  <div class="impact">
+    <h2>Your Cleanup = Real World Impact</h2>
+    <br>
+    <div id="equivalents"></div>
+
+    <button class="btn" onclick="location.href='dashboard.html'">
+      Run Another Scan
+    </button>
+  </div>
+
+</div>
+
+<script>
+
+/* -------- DEMO IMPACT CALC -------- */
+
+const before = 160 + Math.random()*80;
+const dark = before * 0.52;
+const after = before - dark;
+
+const energy = dark * 1.2;
+const carbon = dark * 0.5;
+
+document.getElementById("before").innerText = before.toFixed(1) + " GB";
+document.getElementById("after").innerText = after.toFixed(1) + " GB";
+document.getElementById("energy").innerText = energy.toFixed(1) + " kWh";
+document.getElementById("carbon").innerText = carbon.toFixed(1) + " kg CO₂";
+
+/* bars */
+
+setTimeout(()=>{
+  document.getElementById("barBefore").style.width="100%";
+  document.getElementById("barAfter").style.width=(after/before*100)+"%";
+},300);
+
+/* equivalence */
+
+const teslaMinutes = (energy * 0.9).toFixed(0);
+const homeHours = (energy * 0.6).toFixed(0);
+const driveKm = (carbon * 4).toFixed(0);
+
+document.getElementById("equivalents").innerHTML = `
+⚡ Enough energy to charge a Tesla for <b>${teslaMinutes} minutes</b><br><br>
+🏠 Power a home for <b>${homeHours} hours</b><br><br>
+🚗 Avoid driving <b>${driveKm} km</b> worth of emissions
+`;
+
+</script>
+
+</body>
+</html>

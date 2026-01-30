@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GreenBit – Data Consent</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #dff5e3, #e8f4ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Card */
+.consent-card {
+    width: 520px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+
+
+/* Header */
+.card-header {
+    padding: 22px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #2e7d32;
+    border-bottom: 1px solid #eee;
+}
+
+/* Body */
+.card-body {
+    padding: 24px;
+    color: #555;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+.section {
+    margin-bottom: 18px;
+}
+
+.section-title {
+    font-weight: 600;
+    color: #1b5e20;
+    margin-bottom: 6px;
+}
+
+/* Footer */
+.card-footer {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+}
+
+/* Button */
+.btn-consent {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+    background: linear-gradient(90deg, #2e7d32, #66bb6a);
+    transition: 0.3s;
+}
+
+.btn-consent:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+/* Links */
+a {
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="consent-card">
+
+    <div class="card-header">
+        Your consent to collect and analyze your data
+    </div>
+
+    <div class="card-body">
+
+        <div class="section">
+            <div class="section-title">🔒 Your privacy is our priority</div>
+            GreenBit never sells your personal data. We analyze digital storage
+            patterns only to estimate carbon footprint and suggest cleanup actions.
+            Your data is used only for sustainability insights.
+        </div>
+
+        <div class="section">
+            <div class="section-title">❓ How does it work?</div>
+            By clicking <b>“Let’s go”</b> you allow GreenBit to scan your selected
+            storage/email metadata to calculate:
+            <ul>
+                <li>Digital carbon footprint</li>
+                <li>Unused data waste</li>
+                <li>Cleanup opportunities</li>
+                <li>Environmental impact score</li>
+            </ul>
+            You can revoke permission anytime from Settings.
+        </div>
+
+        <div class="section">
+            For more information review our
+            <a href="#">Terms of Service</a>,
+            <a href="#">Privacy Policy</a>,
+            and <a href="#">Data Usage Policy</a>.
+        </div>
+
+    </div>
+
+    <div class="card-footer">
+        <button onclick="window.history.back()" style="width:100%;margin-bottom:12px;padding:13px;font-size:15px;border-radius:30px;border:1px solid #2e7d32;background:white;color:#2e7d32;font-weight:600;cursor:pointer;transition:0.2s;">← Back</button>
+        <button class="btn-consent" onclick="acceptConsent()">
+            Let's go 🌱
+        </button>
+    </div>
+
+</div>
+
+<script>
+function acceptConsent() {
+    localStorage.setItem("greenbit_consent", "true");
+    window.location.href = "dashboard.html"; // change if needed
+}
+</script>
+
+</body>
+</html>
